@@ -8,28 +8,6 @@ constexpr int memSize = 65536;
 int memory[memSize];
 int pointer = 0;
 
-struct CharArray
-{
-	char* text;
-	int length;
-};
-
-/*Listing GetListingFromFile(char* fileName)
-{
-	std::ifstream inStream;
-	char op;
-	int i = 0;
-	inStream.open("source.bf");
-	while (inStream >> op) i++;
-	char* listing = new char[i];
-	i = 0;
-	while (inStream >> op) listing[i++] = op;
-	inStream.close();
-	std::cout << "Length: " << i << std::endl;
-	for (int j = 0; j < i; j++) std::cout << listing[j] << std::endl;
-	
-}*/
-
 void Interpret(char* listing, int length)
 {
 	int i = 0;
@@ -65,12 +43,10 @@ void Interpret(char* listing, int length)
 			i++;
 			break;
 		case 44:
-			//std::cout << "Enter: ";
 		{
 			int c = 0;
 			std::cin >> c;
 			memory[pointer] = char(c);
-			//memory[pointer] = getchar();
 			i++;
 		}
 			break;
@@ -87,22 +63,11 @@ void Interpret(char* listing, int length)
 				if (listing[j] == 91) nested++;
 				if (listing[j] == 93) nested--;
 				text[k] = listing[j];
-				//for (int w = 0; w < k; w++) std::cout << text[w];
-				//std::cout << std::endl;
 				k++; j++;
 			}
-			/*while (listing[j] != 93)
-			{
-				text[k] = listing[j];
-				k++; j++;
-			}*/
-			//j++;
 			char* cycleBody = new char[k];
 			for (int l = 0; l < k - 1; l++) cycleBody[l] = text[l];
 			delete[] text;
-			//std::cout << "cycleBody: ";
-			//for (int w = 0; w < k-1; w++) std::cout << cycleBody[w];
-			//std::cout << std::endl;
 			while (memory[p] != 0) Interpret(cycleBody, k - 1);
 			i = j;
 		}	
